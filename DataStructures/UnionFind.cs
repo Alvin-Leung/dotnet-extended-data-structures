@@ -6,6 +6,11 @@ namespace DataStructures
     {
         public int Count { get; set; }
 
+        public UnionFind(int size)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Connected(int firstIndex, int secondIndex)
         {
             throw new NotImplementedException();
