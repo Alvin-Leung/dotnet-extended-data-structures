@@ -33,6 +33,22 @@ namespace UnitTests
             }
         }
 
+        [TestCaseSource(nameof(UnionFindTests.GetComponentSizeTestCaseSource))]
+        public void TestGetComponentSize(TestParameters parameters)
+        {
+            var unionFind = new UnionFind(parameters.Size);
+
+            foreach (var pair in parameters.PairsToMerge)
+            {
+                unionFind.Unify(pair.FirstIndex, pair.SecondIndex);
+            }
+
+            foreach (var pair in parameters.TestPairs)
+            {
+                Assert.That(unionFind.GetComponentSize(pair.Input), Is.EqualTo(pair.ExpectedOutput));
+            }
+        }
+
         private static IEnumerable<TestCaseData> UnifyTestCaseSource()
         {
             yield return new TestCaseData(new TestParameters
@@ -70,6 +86,86 @@ namespace UnitTests
                     new TestPair(6, 500) 
                 }
             }).SetName("Merge three groups together");
+
+            yield return new TestCaseData(new TestParameters
+            {
+                Size = 11,
+                PairsToMerge = new[]
+                {
+                    new IndexPair(10, 0),
+                    new IndexPair(1, 9),
+                    new IndexPair(2, 8),
+                    new IndexPair(3, 7),
+                    new IndexPair(4, 6),
+                    new IndexPair(5, 10),
+                    new IndexPair(5, 1),
+                    new IndexPair(8, 5),
+                    new IndexPair(3, 4)
+                },
+                TestPairs = new[]
+                {
+                    new TestPair(0, 10),
+                    new TestPair(1, 10),
+                    new TestPair(2, 10),
+                    new TestPair(3, 3),
+                    new TestPair(4, 3),
+                    new TestPair(5, 10),
+                    new TestPair(6, 3),
+                    new TestPair(7, 3),
+                    new TestPair(8, 10),
+                    new TestPair(9, 10),
+                    new TestPair(10, 10)
+                }
+            }).SetName("Merge elements into two different groups");
+        }
+
+        private static IEnumerable<TestCaseData> GetComponentSizeTestCaseSource()
+        {
+            yield return new TestCaseData(new TestParameters
+            {
+                Size = 4,
+                PairsToMerge = new[] { new IndexPair(1, 1), new IndexPair(2, 2), new IndexPair(3, 3) },
+                TestPairs = new[] { new TestPair(1, 1), new TestPair(2, 1), new TestPair(3, 1) }
+            }).SetName("Check component sizes of elements that have not yet been grouped");
+
+            yield return new TestCaseData(new TestParameters
+            {
+                Size = 6,
+                PairsToMerge = new[] { new IndexPair(1, 2), new IndexPair(2, 3), new IndexPair(3, 4), new IndexPair(4, 5) },
+                TestPairs = new[] { new TestPair(1, 5), new TestPair(2, 5), new TestPair(3, 5), new TestPair(4, 5), new TestPair(5, 5) }
+            }).SetName("Check component sizes of elements that are all in the same group");
+
+            yield return new TestCaseData(new TestParameters
+            {
+                Size = 11,
+                PairsToMerge = new[]
+                { 
+                    new IndexPair(10, 0),
+                    new IndexPair(1, 9),
+                    new IndexPair(2, 8),
+                    new IndexPair(3, 7),
+                    new IndexPair(4, 6),
+
+                    new IndexPair(5, 10),
+                    new IndexPair(5, 1),
+                    new IndexPair(8, 5),
+                    new IndexPair(3, 4)
+                },
+                TestPairs = new[]
+                {
+                    new TestPair(0, 7),
+                    new TestPair(1, 7),
+                    new TestPair(2, 7),
+                    new TestPair(3, 4),
+                    new TestPair(4, 4),
+                    new TestPair(5, 7),
+                    new TestPair(6, 4),
+                    new TestPair(7, 4),
+                    new TestPair(8, 7),
+                    new TestPair(9, 7),
+                    new TestPair(10, 7)
+                }
+            }).SetName("Check component sizes of elements that are all in the same group");
         }
 
         public class TestParameters
