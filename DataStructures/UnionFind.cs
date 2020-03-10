@@ -7,7 +7,7 @@ namespace DataStructures
         private int[] elements;
         private int[] componentSizes;
 
-        public int Count { get; private set; }
+        public int ComponentCount { get; private set; }
 
         public UnionFind(int size)
         {
@@ -25,7 +25,7 @@ namespace DataStructures
                 this.componentSizes[i] = 1;
             }
 
-            this.Count = size;
+            this.ComponentCount = size;
         }
 
         public bool Connected(int firstIndex, int secondIndex)
@@ -35,7 +35,7 @@ namespace DataStructures
 
         public int Find(int index)
         {
-            if (index < 0 || index > this.Count - 1)
+            if (index < 0 || index > this.elements.Length - 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), Resource.IndexMustBeWithinValidRange);
             }
@@ -50,14 +50,19 @@ namespace DataStructures
             return nextIndex;
         }
 
+        public int GetComponentSize(int index)
+        {
+            return this.componentSizes[this.Find(index)];
+        }
+
         public void Unify(int firstIndex, int secondIndex)
         {
-            if (firstIndex < 0 || firstIndex > this.Count - 1)
+            if (firstIndex < 0 || firstIndex > this.elements.Length - 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(firstIndex), Resource.IndexMustBeWithinValidRange);
             }
 
-            if (secondIndex < 0 || secondIndex > this.Count - 1)
+            if (secondIndex < 0 || secondIndex > this.elements.Length - 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(secondIndex), Resource.IndexMustBeWithinValidRange);
             }
@@ -86,7 +91,7 @@ namespace DataStructures
                 this.componentSizes[secondParentIndex] += this.componentSizes[firstParentIndex];
             }
 
-            this.Count--;
+            this.ComponentCount--;
         }
     }
 }
