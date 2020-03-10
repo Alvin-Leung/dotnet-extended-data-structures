@@ -68,5 +68,14 @@ namespace DataStructures {
                 return ResourceManager.GetString("IndexMustBeWithinValidRange", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passed in size must be greater than or equal to 0, and less than the maximum allowable integer size..
+        /// </summary>
+        internal static string SizeMustBeWithinValidRange {
+            get {
+                return ResourceManager.GetString("SizeMustBeWithinValidRange", resourceCulture);
+            }
+        }
     }
 }

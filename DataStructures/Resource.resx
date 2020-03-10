@@ -120,4 +120,7 @@
   <data name="IndexMustBeWithinValidRange" xml:space="preserve">
     <value>The passed in index must be greater than or equal to 0, and less than the size.</value>
   </data>
+  <data name="SizeMustBeWithinValidRange" xml:space="preserve">
+    <value>The passed in size must be greater than or equal to 0, and less than the maximum allowable integer size.</value>
+  </data>
 </root>
