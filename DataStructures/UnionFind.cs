@@ -1,19 +1,31 @@
 ﻿using System;
-using System.Linq;
 
 namespace DataStructures
 {
     public class UnionFind
     {
         private int[] elements;
-        private int numComponents;
+        private int[] componentSizes;
 
-        public int Count => this.numComponents;
+        public int Count { get; private set; }
 
         public UnionFind(int size)
         {
-            this.elements = Enumerable.Range(0, size).ToArray();
-            this.numComponents = size;
+            if (size < 0 || size > int.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(size), Resource.SizeMustBeWithinValidRange);
+            }
+
+            this.elements = new int[size];
+            this.componentSizes = new int[size];
+
+            for (var i = 0; i < size; i++)
+            {
+                this.elements[i] = i;
+                this.componentSizes[i] = 1;
+            }
+
+            this.Count = size;
         }
 
         public bool Connected(int firstIndex, int secondIndex)
@@ -32,13 +44,13 @@ namespace DataStructures
 
             while (this.elements[nextIndex] != nextIndex)
             {
-                nextIndex = this.elements[index];
+                nextIndex = this.elements[nextIndex];
             }
 
             return nextIndex;
         }
 
-        public void Union(int firstIndex, int secondIndex)
+        public void Unify(int firstIndex, int secondIndex)
         {
             if (firstIndex < 0 || firstIndex > this.Count - 1)
             {
@@ -63,8 +75,18 @@ namespace DataStructures
                 return;
             }
 
-            this.elements[firstParentIndex] = secondParentIndex;
-            this.numComponents--;
+            if (this.componentSizes[firstParentIndex] >= this.componentSizes[secondParentIndex])
+            {
+                this.elements[secondParentIndex] = firstParentIndex;
+                this.componentSizes[firstParentIndex] += this.componentSizes[secondParentIndex];
+            }
+            else
+            {
+                this.elements[firstParentIndex] = secondParentIndex;
+                this.componentSizes[secondParentIndex] += this.componentSizes[firstParentIndex];
+            }
+
+            this.Count--;
         }
     }
 }
