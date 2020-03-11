@@ -42,10 +42,12 @@ namespace DataStructures
 
             int nextIndex = index;
 
-            while (this.elements[nextIndex] != nextIndex)
+            while (this.HasParent(nextIndex))
             {
                 nextIndex = this.elements[nextIndex];
             }
+
+            this.CompressPath(index, nextIndex);
 
             return nextIndex;
         }
@@ -92,6 +94,23 @@ namespace DataStructures
             }
 
             this.ComponentCount--;
+        }
+
+        private bool HasParent(int nextIndex)
+        {
+            return this.elements[nextIndex] != nextIndex;
+        }
+
+        private void CompressPath(int startIndex, int rootIndex)
+        {
+            var next = startIndex;
+
+            while (this.elements[next] != rootIndex)
+            {
+                var temp = this.elements[next];
+                this.elements[next] = rootIndex;
+                next = temp;
+            }
         }
     }
 }
