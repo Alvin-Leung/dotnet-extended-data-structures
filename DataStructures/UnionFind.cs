@@ -2,7 +2,7 @@
 
 namespace DataStructures
 {
-    public partial class UnionFind
+    public class UnionFind
     {
         private int[] elements;
         private int[] componentSizes;
