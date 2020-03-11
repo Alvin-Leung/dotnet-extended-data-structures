@@ -9,14 +9,14 @@
             this.elements = elements;
         }
 
-        public void Compress(int startIndex, int rootIndex)
+        public void Compress(int from, int to)
         {
-            var next = startIndex;
+            var next = from;
 
-            while (this.elements[next] != rootIndex)
+            while (this.elements[next] != to)
             {
                 var temp = this.elements[next];
-                this.elements[next] = rootIndex;
+                this.elements[next] = to;
                 next = temp;
             }
         }
