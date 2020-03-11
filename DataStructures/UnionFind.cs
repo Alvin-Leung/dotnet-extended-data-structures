@@ -82,6 +82,11 @@ namespace DataStructures
                 return;
             }
 
+            this.UpdateComponentState(firstParentIndex, secondParentIndex);
+        }
+
+        private void UpdateComponentState(int firstParentIndex, int secondParentIndex)
+        {
             if (this.componentSizes[firstParentIndex] >= this.componentSizes[secondParentIndex])
             {
                 this.elements[secondParentIndex] = firstParentIndex;
