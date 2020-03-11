@@ -56,21 +56,21 @@ namespace UnitTests
                 Size = 4,
                 PairsToMerge = new[] { new IndexPair(1, 1), new IndexPair(2, 2), new IndexPair(3, 3) },
                 TestPairs = new[] { new TestPair(1, 1), new TestPair(2, 2), new TestPair(3, 3) }
-            }).SetName("Merge elements to themselves");
+            }).SetName("Unify each element to itself, then ensure each element points to itself");
 
             yield return new TestCaseData(new TestParameters
             {
                 Size = 6,
                 PairsToMerge = new[] { new IndexPair(1, 2), new IndexPair(2, 3), new IndexPair(3, 4), new IndexPair(4, 5) },
                 TestPairs = new[] { new TestPair(1, 1), new TestPair(2, 1), new TestPair(3, 1), new TestPair(4, 1), new TestPair(5, 1) }
-            }).SetName("Merge all elements to the same group");
+            }).SetName("Unify all elements into the same component, then ensure all elements have the same parent");
 
             yield return new TestCaseData(new TestParameters
             {
                 Size = 101,
                 PairsToMerge = new[] { new IndexPair(5, 100), new IndexPair(3, 50), new IndexPair(2, 50), new IndexPair(50, 6), new IndexPair(100, 6) },
                 TestPairs = new[] { new TestPair(5, 3), new TestPair(100, 3), new TestPair(3, 3), new TestPair(50, 3), new TestPair(2, 3), new TestPair(6, 3) }
-            }).SetName("Merge two groups together");
+            }).SetName("Unify two components together, then ensure all elements have the same parent");
 
             yield return new TestCaseData(new TestParameters
             {
@@ -85,7 +85,7 @@ namespace UnitTests
                     new TestPair(33, 500),
                     new TestPair(6, 500) 
                 }
-            }).SetName("Merge three groups together");
+            }).SetName("Unify three components together, then ensure all elements have the same parent");
 
             yield return new TestCaseData(new TestParameters
             {
@@ -116,7 +116,7 @@ namespace UnitTests
                     new TestPair(9, 10),
                     new TestPair(10, 10)
                 }
-            }).SetName("Merge elements into two different groups");
+            }).SetName("Unify elements into two different compoents, then ensure that they each have the correct parent");
         }
 
         private static IEnumerable<TestCaseData> GetComponentSizeTestCaseSource()
@@ -126,14 +126,14 @@ namespace UnitTests
                 Size = 4,
                 PairsToMerge = new[] { new IndexPair(1, 1), new IndexPair(2, 2), new IndexPair(3, 3) },
                 TestPairs = new[] { new TestPair(1, 1), new TestPair(2, 1), new TestPair(3, 1) }
-            }).SetName("Check component sizes of elements that have not yet been grouped");
+            }).SetName("Get the component size of elements that have not yet been grouped");
 
             yield return new TestCaseData(new TestParameters
             {
                 Size = 6,
                 PairsToMerge = new[] { new IndexPair(1, 2), new IndexPair(2, 3), new IndexPair(3, 4), new IndexPair(4, 5) },
                 TestPairs = new[] { new TestPair(1, 5), new TestPair(2, 5), new TestPair(3, 5), new TestPair(4, 5), new TestPair(5, 5) }
-            }).SetName("Check component sizes of elements that are all in the same group");
+            }).SetName("Get the component size of elements that are all in the same component");
 
             yield return new TestCaseData(new TestParameters
             {
@@ -165,7 +165,7 @@ namespace UnitTests
                     new TestPair(9, 7),
                     new TestPair(10, 7)
                 }
-            }).SetName("Check component sizes of elements that are all in the same group");
+            }).SetName("Get the component size of elements that are in different components");
         }
 
         public class TestParameters
