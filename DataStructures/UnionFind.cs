@@ -2,7 +2,7 @@
 
 namespace DataStructures
 {
-    public class UnionFind
+    public partial class UnionFind
     {
         private int[] elements;
         private int[] componentSizes;
@@ -47,7 +47,7 @@ namespace DataStructures
                 nextIndex = this.elements[nextIndex];
             }
 
-            this.CompressPath(index, nextIndex);
+            new PathCompressor(this.elements).Compress(index, nextIndex);
 
             return nextIndex;
         }
@@ -104,18 +104,6 @@ namespace DataStructures
         private bool HasParent(int nextIndex)
         {
             return this.elements[nextIndex] != nextIndex;
-        }
-
-        private void CompressPath(int startIndex, int rootIndex)
-        {
-            var next = startIndex;
-
-            while (this.elements[next] != rootIndex)
-            {
-                var temp = this.elements[next];
-                this.elements[next] = rootIndex;
-                next = temp;
-            }
         }
     }
 }
