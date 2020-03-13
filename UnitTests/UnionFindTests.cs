@@ -10,7 +10,6 @@ namespace UnitTests
         [TestCase(2, 1, 1)]
         [TestCase(4, 3, 3)]
         [TestCase(10, 9, 9)]
-        [Test]
         public void TestFind(int size, int indexToFind, int expectedParent)
         {
             var unionFind = new UnionFind(size);
