@@ -1,6 +1,6 @@
 ﻿namespace DataStructures
 {
-    public class PathCompressor
+    internal class PathCompressor
     {
         private readonly int[] elements;
 
