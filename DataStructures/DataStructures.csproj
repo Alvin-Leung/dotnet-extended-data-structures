@@ -1,7 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Implementations of data structures that are not included with .NET. Written in C#.</Description>
+    <PackageProjectUrl />
+    <RepositoryUrl>https://github.com/Alvin-Leung/dotnet-extended-data-structures</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
