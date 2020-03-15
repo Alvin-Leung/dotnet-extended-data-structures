@@ -59,9 +59,9 @@ namespace UnitTests
                 unionFind.Unify(pair.FirstIndex, pair.SecondIndex);
             }
 
-            foreach (var pair in parameters.InputOutput)
+            foreach (var inputOutput in parameters.InputOutput)
             {
-                Assert.That(unionFind.Find(pair.Input), Is.EqualTo(pair.ExpectedOutput));
+                Assert.That(unionFind.Find(inputOutput.Input), Is.EqualTo(inputOutput.ExpectedOutput));
             }
         }
 
@@ -79,9 +79,9 @@ namespace UnitTests
                 unionFind.Unify(pair.FirstIndex, pair.SecondIndex);
             }
 
-            foreach (var pair in parameters.InputOutput)
+            foreach (var inputOutput in parameters.InputOutput)
             {
-                Assert.That(unionFind.GetComponentSize(pair.Input), Is.EqualTo(pair.ExpectedOutput));
+                Assert.That(unionFind.GetComponentSize(inputOutput.Input), Is.EqualTo(inputOutput.ExpectedOutput));
             }
         }
 
