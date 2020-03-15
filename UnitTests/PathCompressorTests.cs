@@ -5,8 +5,15 @@ using System.Linq;
 
 namespace UnitTests
 {
-    class PathCompressorTests
+    /// <summary>
+    /// Unit tests for the <see cref="PathCompressor"/> class
+    /// </summary>
+    internal class PathCompressorTests
     {
+        /// <summary>
+        /// Tests that the <see cref="PathCompressor.Compress(int, int)"/> behaves as expected
+        /// </summary>
+        /// <param name="parameters">An instance encapsulating the inputs and expected outputs from this test</param>
         [TestCaseSource(nameof(PathCompressorTestCaseSource))]
         public void TestPathCompressor(CompressParameters parameters)
         {
@@ -17,7 +24,7 @@ namespace UnitTests
             Assert.That(elements, Is.EqualTo(parameters.ExpectedElements));
         }
 
-        public static IEnumerable<TestCaseData> PathCompressorTestCaseSource()
+        private static IEnumerable<TestCaseData> PathCompressorTestCaseSource()
         {
             yield return new TestCaseData(new CompressParameters
             {
@@ -36,14 +43,29 @@ namespace UnitTests
             }).SetName("Compress elements in mixed array order");
         }
 
+        /// <summary>
+        /// Parameters for testing the <see cref="PathCompressor.Compress(int, int)"/> method
+        /// </summary>
         public class CompressParameters
         {
+            /// <summary>
+            /// An array of elements to initialize a <see cref="PathCompressor"/> instance with
+            /// </summary>
             public int[] InitialElements { get; set; }
 
+            /// <summary>
+            /// The index of the child element where path compression will begin
+            /// </summary>
             public int StartIndex { get; set; }
 
+            /// <summary>
+            /// The index of the root parent element where path compression will end
+            /// </summary>
             public int RootIndex { get; set; }
 
+            /// <summary>
+            /// The expected elements after path compression
+            /// </summary>
             public int[] ExpectedElements { get; set; }
         }
     }
