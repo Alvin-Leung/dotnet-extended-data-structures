@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace UnitTests
 {
+    /// <summary>
+    /// Unit tests for the <see cref="UnionFind"/> class
+    /// </summary>
     public class UnionFindTests
     {
         /// <summary>
