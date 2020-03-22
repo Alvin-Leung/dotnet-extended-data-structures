@@ -70,11 +70,11 @@ namespace DataStructures {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The passed in size must be greater than or equal to 0, and less than the maximum allowable integer size..
+        ///   Looks up a localized string similar to The passed in size must be greater than 0.
         /// </summary>
-        internal static string SizeMustBeWithinValidRange {
+        internal static string SizeMustBeGreaterThanZero {
             get {
-                return ResourceManager.GetString("SizeMustBeWithinValidRange", resourceCulture);
+                return ResourceManager.GetString("SizeMustBeGreaterThanZero", resourceCulture);
             }
         }
     }

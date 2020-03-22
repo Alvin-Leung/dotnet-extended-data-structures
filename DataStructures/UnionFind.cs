@@ -20,15 +20,20 @@ namespace DataStructures
         public int ComponentCount { get; private set; }
 
         /// <summary>
+        /// The number of elements in this <see cref="UnionFind"/>
+        /// </summary>
+        public int ElementCount => this.elements.Length;
+
+        /// <summary>
         /// Creates an instance of an integer based <see cref="UnionFind"/> data structure
         /// </summary>
         /// <param name="size">The number of elements to initialize the <see cref="UnionFind"/> instance with</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if the inputted <paramref name="size"/> is less than 0 or above <see cref="int.MaxValue"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the inputted <paramref name="size"/> is less than or equal to 0</exception>
         public UnionFind(int size)
         {
-            if (size < 0 || size > int.MaxValue)
+            if (size <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(size), Resource.SizeMustBeWithinValidRange);
+                throw new ArgumentOutOfRangeException(nameof(size), Resource.SizeMustBeGreaterThanZero);
             }
 
             this.elements = new int[size];
@@ -59,7 +64,7 @@ namespace DataStructures
         /// </summary>
         /// <param name="index">The index of the child element</param>
         /// <returns>The index of the root parent element, or the inputted index if the element has no parents</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if the inputted <paramref name="index"/> is less than 0 or above <see cref="int.MaxValue"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the inputted <paramref name="index"/> is less than 0 or larger than the size of the <see cref="UnionFind"/></exception>
         /// <remarks>
         /// This method has the side-effect of compressing the path from child to root parent such that all elements between, including the child, directly
         /// point to the root parent after <see cref="Find(int)"/> has executed. As a result of path compression, <see cref="Find(int)"/> runs in amortized 
@@ -67,7 +72,7 @@ namespace DataStructures
         /// </remarks>
         public int Find(int index)
         {
-            if (index < 0 || index > this.elements.Length - 1)
+            if (index < 0 || index > this.ElementCount - 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), Resource.IndexMustBeWithinValidRange);
             }
@@ -100,16 +105,16 @@ namespace DataStructures
         /// <param name="firstIndex">The index of the first element to merge</param>
         /// <param name="secondIndex">The index of the second element to merge</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown if either the inputted <paramref name="firstIndex"/> or <paramref name="secondIndex"/> is less than 0 or above <see cref="int.MaxValue"/>
+        /// Thrown if either the inputted <paramref name="firstIndex"/> or <paramref name="secondIndex"/> is less than 0 or larger than the size of the <see cref="UnionFind"/>
         /// </exception>
         public void Unify(int firstIndex, int secondIndex)
         {
-            if (firstIndex < 0 || firstIndex > this.elements.Length - 1)
+            if (firstIndex < 0 || firstIndex > this.ElementCount - 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(firstIndex), Resource.IndexMustBeWithinValidRange);
             }
 
-            if (secondIndex < 0 || secondIndex > this.elements.Length - 1)
+            if (secondIndex < 0 || secondIndex > this.ElementCount - 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(secondIndex), Resource.IndexMustBeWithinValidRange);
             }
