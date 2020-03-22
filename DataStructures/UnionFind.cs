@@ -15,6 +15,11 @@ namespace DataStructures
         private int[] componentSizes;
 
         /// <summary>
+        /// The strategy to use during <see cref="Find(int)"/>. Default strategy is <see cref="FindWithPathCompression"/>.
+        /// </summary>
+        public IFindStrategy FindStrategy { get; set; }
+
+        /// <summary>
         /// The number of components that elements have been grouped into
         /// </summary>
         public int ComponentCount { get; private set; }
@@ -45,6 +50,7 @@ namespace DataStructures
                 this.componentSizes[i] = 1;
             }
 
+            this.FindStrategy = new FindWithPathCompression(this.elements);
             this.ComponentCount = size;
         }
 
@@ -64,12 +70,7 @@ namespace DataStructures
         /// </summary>
         /// <param name="index">The index of the child element</param>
         /// <returns>The index of the root parent element, or the inputted index if the element has no parents</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if the inputted <paramref name="index"/> is less than 0 or larger than the size of the <see cref="UnionFind"/></exception>
-        /// <remarks>
-        /// This method has the side-effect of compressing the path from child to root parent such that all elements between, including the child, directly
-        /// point to the root parent after <see cref="Find(int)"/> has executed. As a result of path compression, <see cref="Find(int)"/> runs in amortized 
-        /// constant time.
-        /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the inputted <paramref name="index"/> is less than 0, or larger than or equal to the size of the <see cref="UnionFind"/></exception>
         public int Find(int index)
         {
             if (index < 0 || index >= this.ElementCount)
@@ -77,16 +78,7 @@ namespace DataStructures
                 throw new ArgumentOutOfRangeException(nameof(index), Resource.IndexMustBeWithinValidRange);
             }
 
-            int nextIndex = index;
-
-            while (this.HasParent(nextIndex))
-            {
-                nextIndex = this.elements[nextIndex];
-            }
-
-            new PathCompressor(this.elements).Compress(index, nextIndex);
-
-            return nextIndex;
+            return new FindWithPathCompression(this.elements).Find(index);
         }
 
         /// <summary>
@@ -149,11 +141,6 @@ namespace DataStructures
             }
 
             this.ComponentCount--;
-        }
-
-        private bool HasParent(int nextIndex)
-        {
-            return this.elements[nextIndex] != nextIndex;
         }
     }
 }
