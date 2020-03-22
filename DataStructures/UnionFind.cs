@@ -72,7 +72,7 @@ namespace DataStructures
         /// </remarks>
         public int Find(int index)
         {
-            if (index < 0 || index > this.ElementCount - 1)
+            if (index < 0 || index >= this.ElementCount)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), Resource.IndexMustBeWithinValidRange);
             }
@@ -109,12 +109,12 @@ namespace DataStructures
         /// </exception>
         public void Unify(int firstIndex, int secondIndex)
         {
-            if (firstIndex < 0 || firstIndex > this.ElementCount - 1)
+            if (firstIndex < 0 || firstIndex >= this.ElementCount)
             {
                 throw new ArgumentOutOfRangeException(nameof(firstIndex), Resource.IndexMustBeWithinValidRange);
             }
 
-            if (secondIndex < 0 || secondIndex > this.ElementCount - 1)
+            if (secondIndex < 0 || secondIndex >= this.ElementCount)
             {
                 throw new ArgumentOutOfRangeException(nameof(secondIndex), Resource.IndexMustBeWithinValidRange);
             }
