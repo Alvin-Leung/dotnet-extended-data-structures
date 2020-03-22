@@ -1,7 +1,7 @@
 ﻿namespace DataStructures
 {
     /// <summary>
-    /// A path compression strategy class for the <see cref="UnionFind"/> data structure. 
+    /// Encapsulates path compression logic for the <see cref="UnionFind"/> data structure. 
     /// </summary>
     internal class PathCompressor
     {
