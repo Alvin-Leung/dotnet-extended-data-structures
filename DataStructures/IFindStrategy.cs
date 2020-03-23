@@ -6,8 +6,10 @@
     public interface IFindStrategy
     {
         /// <summary>
-        /// Finds the index of the root parent to an element
+        /// Finds the index of the root parent of an element
         /// </summary>
-        int Find(int index);
+        /// <param name="index">The index of the element to find the root parent index of</param>
+        /// <param name="elements">The elements from which to find a root parent index</param>
+        int Find(int index, int[] elements);
     }
 }

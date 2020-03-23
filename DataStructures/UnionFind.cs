@@ -13,11 +13,7 @@ namespace DataStructures
     {
         private int[] elements;
         private int[] componentSizes;
-
-        /// <summary>
-        /// The strategy to use during <see cref="Find(int)"/>. Default strategy is <see cref="FindWithPathCompression"/>.
-        /// </summary>
-        public IFindStrategy FindStrategy { get; set; }
+        private IFindStrategy findStrategy;
 
         /// <summary>
         /// The number of components that elements have been grouped into
@@ -30,11 +26,21 @@ namespace DataStructures
         public int ElementCount => this.elements.Length;
 
         /// <summary>
-        /// Creates an instance of an integer based <see cref="UnionFind"/> data structure
+        /// Creates an instance of an integer based <see cref="UnionFind"/> data structure.
         /// </summary>
         /// <param name="size">The number of elements to initialize the <see cref="UnionFind"/> instance with</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the inputted <paramref name="size"/> is less than or equal to 0</exception>
-        public UnionFind(int size)
+        public UnionFind(int size) : this(size, new FindWithPathCompression())
+        {
+        }
+
+        /// <summary>
+        /// Creates an instance of an integer based <see cref="UnionFind"/> data structure
+        /// </summary>
+        /// <param name="size">The number of elements to initialize the <see cref="UnionFind"/> instance with</param>
+        /// <param name="findStrategy">The find strategy to use when <see cref="Find(int)"/> is called</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the inputted <paramref name="size"/> is less than or equal to 0</exception>
+        public UnionFind(int size, IFindStrategy findStrategy)
         {
             if (size <= 0)
             {
@@ -43,6 +49,7 @@ namespace DataStructures
 
             this.elements = new int[size];
             this.componentSizes = new int[size];
+            this.findStrategy = findStrategy;
 
             for (var i = 0; i < size; i++)
             {
@@ -50,7 +57,6 @@ namespace DataStructures
                 this.componentSizes[i] = 1;
             }
 
-            this.FindStrategy = new FindWithPathCompression(this.elements);
             this.ComponentCount = size;
         }
 
@@ -78,7 +84,7 @@ namespace DataStructures
                 throw new ArgumentOutOfRangeException(nameof(index), Resource.IndexMustBeWithinValidRange);
             }
 
-            return new FindWithPathCompression(this.elements).Find(index);
+            return this.findStrategy.Find(index, this.elements);
         }
 
         /// <summary>
