@@ -13,14 +13,10 @@ namespace DataStructures
         private Dictionary<int, T> indexToElementLookup;
         private Dictionary<T, int> elementToIndexLookup;
 
-        /// <summary>
-        /// The number of components that elements have been grouped into
-        /// </summary>
+        /// <inheritdoc />
         public int ComponentCount => this.unionFind.ComponentCount;
 
-        /// <summary>
-        /// The number of elements in this <see cref="UnionFind"/>
-        /// </summary>
+        /// <inheritdoc />
         public int ElementCount => this.unionFind.ElementCount;
 
         /// <summary>
@@ -60,24 +56,21 @@ namespace DataStructures
             }
         }
 
-        /// <summary>
-        /// Checks whether two elements are in the same group
-        /// </summary>
-        /// <param name="firstElement">The first element to check</param>
-        /// <param name="secondElement">The second element to check</param>
-        /// <returns>True if the elements are in the same group, otherwise false</returns>
+        /// <inheritdoc />
+        /// <exception cref="ArgumentException">Thrown if either the <paramref name="firstElement"/> or <paramref name="secondElement"/> do not exist in the <see cref="UnionFind{T}"/></exception>
         public bool Connected(T firstElement, T secondElement)
         {
+            if (!this.elementToIndexLookup.ContainsKey(firstElement) || !this.elementToIndexLookup.ContainsKey(secondElement))
+            {
+                throw new ArgumentException("One or more input elements do not exist in the Union Find");
+            }
+
             var firstIndex = this.elementToIndexLookup[firstElement];
             var secondIndex = this.elementToIndexLookup[secondElement];
             return this.unionFind.Connected(firstIndex, secondIndex);
         }
 
-        /// <summary>
-        /// Finds the root parent to a child element
-        /// </summary>
-        /// <param name="element">The child element</param>
-        /// <returns>The root parent element, or the inputted element if it has no parents</returns>
+        /// <inheritdoc />
         /// <exception cref="ArgumentException">Thrown if the inputted <paramref name="element"/> does not exist in the <see cref="UnionFind{T}"/></exception>
         public T Find(T element)
         {
@@ -91,9 +84,7 @@ namespace DataStructures
             return this.indexToElementLookup[rootIndex];
         }
 
-        /// <summary>
-        /// Gets the size of the component an element belongs to
-        /// </summary>
+        /// <inheritdoc />
         /// <exception cref="ArgumentException">Thrown if the inputted <paramref name="element"/> does not exist in the <see cref="UnionFind{T}"/></exception>
         public int GetComponentSize(T element)
         {
@@ -106,11 +97,7 @@ namespace DataStructures
             return this.unionFind.GetComponentSize(index);
         }
 
-        /// <summary>
-        /// Merges two elements' groups together
-        /// </summary>
-        /// <param name="firstElement">The index of the first element to merge</param>
-        /// <param name="secondElement">The index of the second element to merge</param>
+        /// <inheritdoc />
         /// <exception cref="ArgumentException">Thrown if either the <paramref name="firstElement"/> or <paramref name="secondElement"/> do not exist in the <see cref="UnionFind{T}"/></exception>
         public void Unify(T firstElement, T secondElement)
         {
@@ -138,14 +125,10 @@ namespace DataStructures
         private int[] componentSizes;
         private IFindStrategy findStrategy;
 
-        /// <summary>
-        /// The number of components that elements have been grouped into
-        /// </summary>
+        /// <inheritdoc />
         public int ComponentCount { get; private set; }
 
-        /// <summary>
-        /// The number of elements in this <see cref="UnionFind"/>
-        /// </summary>
+        /// <inheritdoc />
         public int ElementCount => this.elements.Length;
 
         /// <summary>
