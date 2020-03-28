@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataStructures
+namespace DataStructures.UnionFind
 {
     /// <summary>
     /// A generic implementation of the union-find data structure

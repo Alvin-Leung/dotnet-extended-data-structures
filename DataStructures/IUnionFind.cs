@@ -1,4 +1,4 @@
-﻿namespace DataStructures
+﻿namespace DataStructures.UnionFind
 {
     /// <summary>
     /// Outlines the methods any union find implementation should have

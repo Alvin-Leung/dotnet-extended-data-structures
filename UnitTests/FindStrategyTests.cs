@@ -1,4 +1,4 @@
-﻿using DataStructures;
+﻿using DataStructures.UnionFind;
 using NUnit.Framework;
 using System.Collections.Generic;
 

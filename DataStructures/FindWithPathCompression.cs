@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures
+namespace DataStructures.UnionFind
 {
     /// <summary>
     /// A strategy class that implements path compression during the find operation
