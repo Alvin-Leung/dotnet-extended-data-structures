@@ -1,4 +1,4 @@
-﻿namespace DataStructures.UnionFind
+﻿namespace DataStructures
 {
     /// <summary>
     /// Encapsulates path compression logic for the <see cref="UnionFind"/> data structure. 
