@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UnitTests
+namespace UnitTests.UnionFind
 {
     /// <summary>
     /// Unit tests for the <see cref="PathCompressor"/> class

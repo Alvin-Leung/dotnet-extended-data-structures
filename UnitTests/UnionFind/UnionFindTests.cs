@@ -2,7 +2,7 @@ using DataStructures.UnionFind;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace UnitTests
+namespace UnitTests.UnionFind
 {
     /// <summary>
     /// Unit tests for the <see cref="UnionFind"/> class

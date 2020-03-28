@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace UnitTests
+namespace UnitTests.UnionFind
 {
     /// <summary>
     /// Tests for implementations of <see cref="IFindStrategy"/>
