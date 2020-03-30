@@ -4,6 +4,7 @@ namespace DataStructures
 {
     public class FenwickTree
     {
+		private int[] originalElements;
 		private int[] sums;
 
 		public FenwickTree(int[] elements)
@@ -17,6 +18,9 @@ namespace DataStructures
 			{
 				throw new ArgumentException("Length of input array cannot be null", nameof(elements));
 			}
+
+			this.originalElements = new int[elements.Length];
+			Array.Copy(sourceArray: elements, destinationArray: this.originalElements, elements.Length);
 
 			this.sums = new int[elements.Length + 1];
 			Array.Copy(sourceArray: elements, sourceIndex: 0, destinationArray: this.sums, destinationIndex: 1, elements.Length);
@@ -37,8 +41,7 @@ namespace DataStructures
 
 		public int GetValue(int index)
 		{
-			var shiftedIndex = index + 1;
-			return this.GetPrefixSum(shiftedIndex) - this.GetPrefixSum(shiftedIndex - 1);
+			return this.originalElements[index];
 		}
 
 		public int GetSum(int from, int to)
@@ -62,6 +65,20 @@ namespace DataStructures
 			var shiftedTo = to + 1;
 
 			return this.GetPrefixSum(shiftedTo) - this.GetPrefixSum(shiftedFrom - 1);
+		}
+
+		public void SetValue(int index, int newValue)
+		{
+			var delta = newValue - this.originalElements[index];
+			var currentIndex = index + 1;
+
+			while (currentIndex < this.sums.Length)
+			{
+				this.sums[currentIndex] += delta;
+				currentIndex += this.GetLeastSignificantBit(currentIndex);
+			}
+
+			this.originalElements[index] = newValue;
 		}
 
 		private int GetPrefixSum(int index)
