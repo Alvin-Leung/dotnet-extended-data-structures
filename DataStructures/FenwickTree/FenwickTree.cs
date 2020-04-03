@@ -6,7 +6,7 @@ namespace DataStructures
 	/// Implementation of a Fenwick/Binary-Indexed Tree for performing range sums and point insertions in O(log(n)) time
 	/// </summary>
 	public class FenwickTree
-    {
+	{
 		private int[] originalElements;
 		private int[] sums;
 
